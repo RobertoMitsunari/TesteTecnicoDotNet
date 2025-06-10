@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using TesteTecnicoDotNet.Business.Interfaces;
 using TesteTecnicoDotNet.Business.Models;
 using TesteTecnicoDotNet.Infra.Data.Context;
@@ -13,6 +9,13 @@ namespace TesteTecnicoDotNet.Infra.Data.Repositorios
 	{
 		public ParcelaRepository(CreditoDbContext context) : base(context)
 		{
+		}
+
+		public async Task<IEnumerable<Parcela>> ObterPorFinanciamentoIdAsync(Guid financiamentoId)
+		{
+			return await _dbSet
+			.Where(p => p.FinanciamentoId == financiamentoId)
+			.ToListAsync();
 		}
 	}
 }
