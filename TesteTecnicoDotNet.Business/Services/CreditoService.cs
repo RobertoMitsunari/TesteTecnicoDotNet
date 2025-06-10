@@ -95,7 +95,7 @@ namespace TesteTecnicoDotNet.Business.Services
 			decimal valorParcela;
 			decimal valorFinal = 0m;
 
-			valorParcela = request.ValorDoCredito * (1 + taxaDeJuros * quantidadeParcelas) / quantidadeParcelas;
+			valorParcela = request.ValorDoCredito * (1 + taxaDeJuros) / quantidadeParcelas;
 
 			for (int i = 0; i < quantidadeParcelas; i++)
 			{
