@@ -15,6 +15,7 @@ namespace TesteTecnicoDotNet.Infra.Data.Repositorios
 		{
 			return await _dbSet
 			.Where(p => p.FinanciamentoId == financiamentoId)
+			.OrderBy(p => p.NumeroParcela)
 			.ToListAsync();
 		}
 	}

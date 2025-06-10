@@ -51,7 +51,7 @@ namespace TesteTecnicoDotNet.Business.Services
 
 			if (erros.Any())
 			{
-				response.Falha(string.Join(", ", erros));
+				response.Falha(string.Join(" ", erros));
 				return false;
 			}
 

@@ -4,7 +4,6 @@ namespace TesteTecnicoDotNet.Business.Models
 {
 	public class Entity
 	{
-		[JsonIgnore]
 		public Guid Id { get; set; }
 
         protected Entity()
