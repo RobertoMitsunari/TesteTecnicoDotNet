@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using TesteTecnicoDotNet.Business.Dtos.Requests;
 using TesteTecnicoDotNet.Business.Interfaces;
 using TesteTecnicoDotNet.Business.Models;
 
@@ -9,10 +11,12 @@ namespace TesteTecnicoDotNet.Api.Controllers
 	public class ParcelaController : Controller
 	{
 		private readonly IParcelaRepository _repository;
+		private readonly IMapper _mapper;
 
-		public ParcelaController(IParcelaRepository repository)
+		public ParcelaController(IParcelaRepository repository, IMapper mapper)
 		{
 			_repository = repository;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -39,8 +43,9 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Parcela>> Create([FromBody] Parcela parcela)
+		public async Task<ActionResult<Parcela>> Create([FromBody] ParcelaRequest parcelaRequest)
 		{
+			var parcela = _mapper.Map<Parcela>(parcelaRequest);
 			await _repository.AddAsync(parcela);
 			await _repository.SaveChangesAsync();
 
@@ -48,8 +53,10 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<IActionResult> Update(Guid id, [FromBody] Parcela parcela)
+		public async Task<IActionResult> Update(Guid id, [FromBody] ParcelaRequest parcelaRequest)
 		{
+			var parcela = _mapper.Map<Parcela>(parcelaRequest);
+
 			if (id != parcela.Id)
 				return BadRequest("ID da URL não corresponde ao ID da parcela.");
 

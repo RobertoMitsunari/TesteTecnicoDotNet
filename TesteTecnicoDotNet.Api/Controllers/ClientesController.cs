@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using TesteTecnicoDotNet.Business.Dtos.Requests;
 using TesteTecnicoDotNet.Business.Interfaces;
 using TesteTecnicoDotNet.Business.Models;
 
@@ -9,10 +11,12 @@ namespace TesteTecnicoDotNet.Api.Controllers
 	public class ClientesController : Controller
 	{
 		private readonly IClienteRepository _clienteRepo;
+		private readonly IMapper _mapper;
 
-		public ClientesController(IClienteRepository clienteRepo)
+		public ClientesController(IClienteRepository clienteRepo, IMapper mapper)
 		{
 			_clienteRepo = clienteRepo;
+			_mapper = mapper;
 		}
 
 		[HttpGet("id/{id}")]
@@ -36,16 +40,18 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> PostCliente([FromBody] Cliente cliente)
+		public async Task<IActionResult> PostCliente([FromBody] ClienteRequest clienteRequest)
 		{
+			var cliente = _mapper.Map<Cliente>(clienteRequest);
 			await _clienteRepo.AddAsync(cliente);
 			await _clienteRepo.SaveChangesAsync();
 			return CreatedAtAction(nameof(PostCliente), new { id = cliente.Id }, cliente);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutCliente(Guid id, [FromBody] Cliente cliente)
+		public async Task<IActionResult> PutCliente(Guid id, [FromBody] ClienteRequest clienteRequest)
 		{
+			var cliente = _mapper.Map<Cliente>(clienteRequest);
 			if (id != cliente.Id)
 				return BadRequest("O ID da URL não corresponde ao ID do cliente.");
 

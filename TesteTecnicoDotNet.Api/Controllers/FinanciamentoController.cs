@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using TesteTecnicoDotNet.Business.Dtos.Requests;
 using TesteTecnicoDotNet.Business.Interfaces;
 using TesteTecnicoDotNet.Business.Models;
 
@@ -9,10 +11,12 @@ namespace TesteTecnicoDotNet.Api.Controllers
 	public class FinanciamentoController : Controller
 	{
 		private readonly IFinanciamentoRepository _repository;
+		private readonly IMapper _mapper;
 
-		public FinanciamentoController(IFinanciamentoRepository repository)
+		public FinanciamentoController(IFinanciamentoRepository repository, IMapper mapper)
 		{
 			_repository = repository;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -41,8 +45,9 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Financiamento>> Create([FromBody] Financiamento financiamento)
+		public async Task<ActionResult<Financiamento>> Create([FromBody] FinanciamentoRequest financiamentoRequest)
 		{
+			var financiamento = _mapper.Map<Financiamento>(financiamentoRequest);
 			await _repository.AddAsync(financiamento);
 			await _repository.SaveChangesAsync();
 
@@ -50,8 +55,10 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		}
 
 		[HttpPut("{id:guid}")]
-		public async Task<IActionResult> Update(Guid id, [FromBody] Financiamento financiamento)
+		public async Task<IActionResult> Update(Guid id, [FromBody] FinanciamentoRequest financiamentoRequest)
 		{
+			var financiamento = _mapper.Map<Financiamento>(financiamentoRequest);
+
 			if (id != financiamento.Id)
 				return BadRequest("ID da URL não corresponde ao ID do objeto.");
 
