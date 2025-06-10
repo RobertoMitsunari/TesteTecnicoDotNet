@@ -45,6 +45,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Parcela>> Create([FromBody] ParcelaRequest parcelaRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var parcela = _mapper.Map<Parcela>(parcelaRequest);
 			await _repository.AddAsync(parcela);
 			await _repository.SaveChangesAsync();
@@ -55,6 +60,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPut("{id:guid}")]
 		public async Task<IActionResult> Update(Guid id, [FromBody] ParcelaRequest parcelaRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var parcela = _mapper.Map<Parcela>(parcelaRequest);
 
 			if (id != parcela.Id)

@@ -47,6 +47,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Financiamento>> Create([FromBody] FinanciamentoRequest financiamentoRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var financiamento = _mapper.Map<Financiamento>(financiamentoRequest);
 			await _repository.AddAsync(financiamento);
 			await _repository.SaveChangesAsync();
@@ -57,6 +62,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPut("{id:guid}")]
 		public async Task<IActionResult> Update(Guid id, [FromBody] FinanciamentoRequest financiamentoRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var financiamento = _mapper.Map<Financiamento>(financiamentoRequest);
 
 			if (id != financiamento.Id)

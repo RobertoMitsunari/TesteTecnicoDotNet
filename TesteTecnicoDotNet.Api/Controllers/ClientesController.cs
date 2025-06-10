@@ -42,6 +42,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> PostCliente([FromBody] ClienteRequest clienteRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var cliente = _mapper.Map<Cliente>(clienteRequest);
 			await _clienteRepo.AddAsync(cliente);
 			await _clienteRepo.SaveChangesAsync();
@@ -51,6 +56,11 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpPut("{id}")]
 		public async Task<IActionResult> PutCliente(Guid id, [FromBody] ClienteRequest clienteRequest)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var cliente = _mapper.Map<Cliente>(clienteRequest);
 			if (id != cliente.Id)
 				return BadRequest("O ID da URL não corresponde ao ID do cliente.");
