@@ -24,7 +24,7 @@ Abra o projeto pelo Visual Studio ou outro editor.
 Alterar a connection string dentro do appsetting.json para o seu SQL Server:
 
 ```SQL
-  "DefaultConnection": "Server=localhost,1433;Database=Credito;User Id=sa; Password=Roberto@123;TrustServerCertificate=True"
+  "DefaultConnection": "Server=localhost,1433;Database=Credito;User Id=sa; Password=SuaSenha@123;TrustServerCertificate=True"
 ```
 
 Após isso rode o Update-Database dentro do Package Manager Console
@@ -32,3 +32,15 @@ Após isso rode o Update-Database dentro do Package Manager Console
   update-database
 ```
 Inicie o projeto.
+
+## Instalação via Docker
+
+Na raiz do projeto rode o seguinte comando:
+```bash
+  docker-compose up --build
+```
+Acessar Url:
+
+```
+  http://localhost:5000/swagger/index.html
+```
