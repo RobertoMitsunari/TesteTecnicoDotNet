@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TesteTecnicoDotNet.Infra.Data.Context;
 
@@ -11,9 +12,11 @@ using TesteTecnicoDotNet.Infra.Data.Context;
 namespace TesteTecnicoDotNet.Infra.Data.Migrations
 {
     [DbContext(typeof(CreditoDbContext))]
-    partial class CreditoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250610155353_Initial3")]
+    partial class Initial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

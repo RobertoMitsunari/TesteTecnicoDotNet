@@ -17,6 +17,9 @@ namespace TesteTecnicoDotNet.Infra.Data.Context
 		{
 			base.OnModelCreating(modelBuilder);
 
+			modelBuilder.Entity<Cliente>()
+				.HasIndex(Cliente => Cliente.Cpf).IsUnique();
+
 			// Cliente -> Financiamento (1:N)
 			modelBuilder.Entity<Financiamento>()
 				.HasOne(f => f.Cliente)
