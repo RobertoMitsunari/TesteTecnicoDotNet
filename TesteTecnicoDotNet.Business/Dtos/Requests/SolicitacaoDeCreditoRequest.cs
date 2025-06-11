@@ -16,6 +16,7 @@ namespace TesteTecnicoDotNet.Business.Dtos.Requests
 		public decimal ValorDoCredito { get; set; }
 
 		[Required(ErrorMessage = "O tipo do crédito é obrigatório.")]
+		[ValidarTipoCredito(typeof(TipoCredito), ErrorMessage = "Tipo de crédito inválido.")]
 		public TipoCredito TipoDoCredito { get; set; }
 
 		[Required(ErrorMessage = "A quantidade de parcelas é obrigatória.")]
@@ -23,7 +24,7 @@ namespace TesteTecnicoDotNet.Business.Dtos.Requests
 		public int QuantidadeParcelas { get; set; }
 
 		[Required(ErrorMessage = "A data do primeiro vencimento é obrigatória.")]
-		[FutureDate(ErrorMessage = "A data do primeiro vencimento deve ser futura.")]
+		[DataFutura(ErrorMessage = "A data do primeiro vencimento deve ser futura.")]
 		[DateInRange(15, 40, ErrorMessage = "A data do primeiro vencimento deve estar entre 15 e 40 dias a partir de hoje.")]
 		public DateTime DataPrimeiroVencimento { get; set; }
 	}

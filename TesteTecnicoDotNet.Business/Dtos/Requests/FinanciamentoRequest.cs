@@ -22,7 +22,7 @@ namespace TesteTecnicoDotNet.Business.Dtos.Requests
 
 		[Required(ErrorMessage = "A data do último vencimento é obrigatória.")]
 		[DataType(DataType.Date, ErrorMessage = "Data inválida.")]
-		[FutureDate(ErrorMessage = "A data de vencimento deve ser no futuro.")]
+		[DataFutura(ErrorMessage = "A data de vencimento deve ser no futuro.")]
 		public DateTime DataUltimoVencimento { get; set; }
 	}
 }

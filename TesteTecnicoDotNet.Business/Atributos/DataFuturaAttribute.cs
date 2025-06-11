@@ -2,7 +2,7 @@
 
 namespace TesteTecnicoDotNet.Business.Atributos
 {
-	public class FutureDateAttribute : ValidationAttribute
+	public class DataFuturaAttribute : ValidationAttribute
 	{
 		public override bool IsValid(object? value)
 		{

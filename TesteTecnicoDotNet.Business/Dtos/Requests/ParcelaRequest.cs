@@ -17,7 +17,7 @@ namespace TesteTecnicoDotNet.Business.Dtos.Requests
 		public decimal ValorParcela { get; set; }
 
 		[Required(ErrorMessage = "A data de vencimento é obrigatória.")]
-		[FutureDate(ErrorMessage = "A data de vencimento deve ser no futuro.")]
+		[DataFutura(ErrorMessage = "A data de vencimento deve ser no futuro.")]
 		public DateTime DataVencimento { get; set; }
 
 		public DateTime? DataPagamento { get; set; }

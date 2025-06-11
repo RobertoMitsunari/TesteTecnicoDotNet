@@ -19,6 +19,16 @@ namespace TesteTecnicoDotNet.Api.Controllers
 			_mapper = mapper;
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> GetTodosClientes()
+		{
+			var clientes = await _clienteRepo.ObterTodosAsync();
+			if (clientes == null)
+				return NotFound();
+
+			return Ok(clientes);
+		}
+
 		[HttpGet("id/{id}")]
 		public async Task<IActionResult> GetClienteById(Guid id)
 		{
