@@ -57,7 +57,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = parcela.Id }, parcela);
 		}
 
-		[HttpPut("{id:guid}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(Guid id, [FromBody] ParcelaRequest parcelaRequest)
 		{
 			if (!ModelState.IsValid)
@@ -79,7 +79,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 			return NoContent();
 		}
 
-		[HttpDelete("{id:guid}")]
+		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(Guid id)
 		{
 			var parcela = await _repository.ObterPorIdAsync(id);

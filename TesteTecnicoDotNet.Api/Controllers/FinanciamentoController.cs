@@ -59,7 +59,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = financiamento.Id }, financiamento);
 		}
 
-		[HttpPut("{id:guid}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(Guid id, [FromBody] FinanciamentoRequest financiamentoRequest)
 		{
 			if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 			return NoContent();
 		}
 
-		[HttpDelete("{id:guid}")]
+		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(Guid id)
 		{
 			var financiamento = await _repository.ObterPorIdAsync(id);
