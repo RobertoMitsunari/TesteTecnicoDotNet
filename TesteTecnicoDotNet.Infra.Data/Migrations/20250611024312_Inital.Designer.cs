@@ -12,8 +12,8 @@ using TesteTecnicoDotNet.Infra.Data.Context;
 namespace TesteTecnicoDotNet.Infra.Data.Migrations
 {
     [DbContext(typeof(CreditoDbContext))]
-    [Migration("20250609204502_Inicial")]
-    partial class Inicial
+    [Migration("20250611024312_Inital")]
+    partial class Inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace TesteTecnicoDotNet.Infra.Data.Migrations
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -48,6 +48,9 @@ namespace TesteTecnicoDotNet.Infra.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Cpf")
+                        .IsUnique();
 
                     b.ToTable("Cliente");
                 });
@@ -66,6 +69,9 @@ namespace TesteTecnicoDotNet.Infra.Data.Migrations
 
                     b.Property<int>("TipoCredito")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("ValorInicialFinanciamento")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("decimal(18,2)");
