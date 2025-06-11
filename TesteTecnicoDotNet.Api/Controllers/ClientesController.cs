@@ -47,6 +47,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 				return BadRequest(ModelState);
 			}
 
+			clienteRequest.Cpf = clienteRequest.Cpf!.Replace(".", "").Replace("-", "").Trim();
 			var cliente = _mapper.Map<Cliente>(clienteRequest);
 			await _clienteRepo.AddAsync(cliente);
 			await _clienteRepo.SaveChangesAsync();

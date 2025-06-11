@@ -39,19 +39,9 @@ namespace TesteTecnicoDotNet.Business.Services
 			if (request.TipoDoCredito == TipoCredito.PessoaJuridica && request.ValorDoCredito < 15000)
 				erros.Add("Para crédito de pessoa jurídica, o valor mínimo é de R$ 15.000,00.");
 
-			if (request.ValorDoCredito > 1000000)
-				erros.Add("O valor máximo para qualquer crédito é de R$ 1.000.000,00.");
-
-			if (request.QuantidadeParcelas < 5 || request.QuantidadeParcelas > 72)
-				erros.Add("A quantidade de parcelas deve ser entre 5 e 72.");
-
-			var diasAteVencimento = (request.DataPrimeiroVencimento.Date - DateTime.Today).TotalDays;
-			if (diasAteVencimento < 15 || diasAteVencimento > 40)
-				erros.Add("A data do primeiro vencimento deve estar entre 15 e 40 dias a partir de hoje.");
-
 			if (erros.Any())
 			{
-				response.Falha(string.Join(" ", erros));
+				response.Erro = (string.Join(" ", erros));
 				return false;
 			}
 
@@ -64,7 +54,7 @@ namespace TesteTecnicoDotNet.Business.Services
 
 			if(cliente is null)
 			{
-				response.Falha($"Não foi possivel encontrar cliente com o cpf: {request.CpfCliente}");
+				response.Erro = $"Não foi possivel encontrar cliente com o cpf: {request.CpfCliente}";
 				return;
 			}
 
@@ -81,7 +71,6 @@ namespace TesteTecnicoDotNet.Business.Services
 
 			response.ValorTotalComJuros = financiamento.ValorTotal;
 			response.ValorDosJuros = financiamento.ValorTotal - request.ValorDoCredito;
-			response.StatusCredito = "Aprovado";
 
 			await SalvarFinanciamento(financiamento);
 		}

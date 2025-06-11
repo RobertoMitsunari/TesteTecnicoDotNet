@@ -38,7 +38,7 @@ namespace TesteTecnicoDotNet.Api.Controllers
 		[HttpGet("cpf/{cpf}")]
 		public async Task<ActionResult<Financiamento>> GetByCpf(string cpf)
 		{
-			var financiamento = await _repository.ObterPorCpfClienteAsync(cpf);
+			var financiamento = await _repository.ObterPorCpfClienteAsync(cpf.Replace(".", "").Replace("-", "").Trim());
 			if (financiamento == null) return NotFound();
 
 			return Ok(financiamento);
